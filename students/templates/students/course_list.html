@@ -1,0 +1,32 @@
+{% extends 'students/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-primary">Available Courses</h2>
+
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Course Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.name }}</td>
+                <td>{{ course.description|default:"No description" }}</td>
+                <td>
+                    {% if course.id in enrolled_courses %}
+                        <span class="badge bg-secondary">Enrolled</span>
+                    {% else %}
+                        <a href="{% url 'enroll_course' course.id %}" class="btn btn-sm btn-success">Enroll</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
